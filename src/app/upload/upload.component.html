@@ -1,0 +1,85 @@
+<div style="padding-top: 20px;"></div>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Upload csv File
+        </div>
+        <div class="card-body">
+            <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="onSelect($event)"
+                accept=".csv" />
+        </div>
+        <hr>
+        <button (click)="onUpload()" class="btn btn-success">Upload</button>
+    </div>
+    <br>
+    <div class="container" *ngIf="loading" class="alert alert-primary" role="alert">
+        <h3>Loading ...</h3>
+    </div>
+    <div *ngIf="infoMessage" class="message" class="alert alert-primary" role="alert">
+        {{ infoMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="message" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+    </div>
+</div>
+<hr>
+<div class="container">
+    <button (click)="getUserData()" class="btn btn-success">GetData</button>
+
+    <div class="mat-elevation-z8">
+        <mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="userId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> userId </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.userId}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fullName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="jobTitle">
+                <mat-header-cell *matHeaderCellDef> Job Title </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.jobTitle}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="department">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> department </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.department}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="businessUnit">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> businessUnit </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.businessUnit}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="gender">
+                <mat-header-cell *matHeaderCellDef> gender </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.gender}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="age">
+                <mat-header-cell *matHeaderCellDef> age </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.age}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="country">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> country </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="city">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> city </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator [pageSize]="10" [length]="count" [pageSizeOptions]="[5, 10]">
+        </mat-paginator>
+
+    </div>
+</div>
